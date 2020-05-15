@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!-- Css Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    <link rel="stylesheet" href="{%  static 'jquery-ui.css' %}" type="text/css" media="all" />
+    <script src="{%  static 'jquery.min.js' %}" type="text/javascript"></script>
+
+    <!-- Este js não funciona estático -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#txtSearch").autocomplete({
+                source: "/ajax_calls/search/",
+                /* Defenir o tanto de letra para começar a buscar*/
+                minLength: 1,
+                open: function(){
+                    setTimeout(function () {
+                        $('.ui-autocomplete').css('z-index', 99);
+                    }, 0);
+                }
+              });
+        });
+</script>
+</head>
+<body>
+    <div class="container text-center">
+        <div class="card-body">
+            <h2>Formulário Autocomplete</h2>
+            <form id="search" method="POST">{% csrf_token %}
+                <input type="text" class="form-control" id="txtSearch" name="txtSearch">
+                <div class="mt-3">
+                    <button type="submit" class="btn mr-auto btn-info">Confirmar</button>
+                </div>
+             </form>
+        </div>
+    </div>
+
+</body>
+</html>
